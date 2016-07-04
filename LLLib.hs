@@ -94,7 +94,7 @@ jestCykl g @ (Grammar prods) = hasCycle startSymbol initialPath stepsLeft where
             let next = case p of
                     [] -> nextNonTerminals s
                     h:_ -> nextNonTerminals h
-            in any (\nextNonTerminal -> hasCycle s (nextNonTerminal:p) (n - 1)) next
+            in any (\nextNonTerminal -> hasCycle s (nextNonTerminal:p) (n - 1)) (Set.toList next)
 
     nextNonTerminals nt = nextNonTerminalsHelper Set.empty relevantRhss where
         relevantProds = filter (\(Prod nt' _) -> nt' == nt) prods

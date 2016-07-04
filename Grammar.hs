@@ -34,6 +34,7 @@ instance Show RhsProdToken where
 
 startSymbol :: Grammar -> NonTerminal
 startSymbol (Grammar (Prod nt _ : _)) = nt
+startSymbol (Grammar []) = error "getting start symbol from empty grammar"
 
 nonTerminals :: Grammar -> [NonTerminal]
 nonTerminals (Grammar prods) = get prods Set.empty where
@@ -47,3 +48,4 @@ fromList list = Grammar prods where
         rhs = map toRhsToken sRhs
         toRhsToken lit @ (h:_) | isUpper h = RhsNonTerminal (NonTerminal lit)
                                | otherwise = RhsTerminal (Terminal lit)
+        toRhsToken [] = error "cannot infer token type of empty string"

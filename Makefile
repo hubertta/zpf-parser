@@ -1,14 +1,12 @@
 GHC = ghc
-GHCFLAGS = -Wall -g -I. 
-
-MODULES = main.hs test.hs LLLib.hs
+GHCFLAGS = -Wall
 
 all: test main
 
-main: $(MODULES)
+main:
 	$(GHC) --make main.hs -o $@ $(GHCFLAGS)
 
-test: $(MODULES)
+test:
 	$(GHC) --make test.hs -o $@ $(GHCFLAGS) -main-is Test
 
 check: test
@@ -17,4 +15,4 @@ check: test
 clean:
 	rm -f *.o *.hi *.swp main test
 
-.PHONY: main test
+.PHONY: all main test check clean
